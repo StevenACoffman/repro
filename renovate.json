@@ -1,0 +1,49 @@
+{
+  "extends": [
+    "config:base",
+    ":rebaseStalePrs"
+  ],
+  "baseBranches": [
+    "main"
+  ],
+  "postUpdateOptions": [
+    "gomodTidy"
+  ],
+  "postUpgradeTasks": {
+    "commands": [
+      "modupdate.sh"
+    ],
+    "executionMode": "update"
+  },
+  "groupName": "all dependencies",
+  "separateMajorMinor": false,
+  "groupSlug": "all",
+  "packageRules": [
+    {
+      "matchPackagePatterns": [
+        "*"
+      ],
+      "matchFiles": [
+        "go.mod"
+      ],
+      "matchPaths": [
+        "go.mod"
+      ],
+      "excludePackagePrefixes": ["k8s.io"],
+      "excludePackageNames": [
+        "k8s.io/client-go"
+      ],
+      "extends": [
+        "schedule:weekly"
+      ],
+      "groupName": "all dependencies",
+      "groupSlug": "all"
+    }
+  ],
+  "lockFileMaintenance": {
+    "enabled": true
+  },
+  "constraints": {
+    "go": "1.17"
+  }
+}
