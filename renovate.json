@@ -1,26 +1,5 @@
 {
   "extends": [
     "config:base"
-  ],
-  "baseBranches": [
-    "main"
-  ],
-  "postUpdateOptions": [
-    "gomodTidy"
-  ],
-  "groupName": "all dependencies",
-  "separateMajorMinor": false,
-  "groupSlug": "all",
-  "packageRules": [
-    {
-      "matchPackagePatterns": [
-        "*"
-      ],
-      "groupName": "all dependencies",
-      "groupSlug": "all"
-    }
-  ],
-  "lockFileMaintenance": {
-    "enabled": true
-  }
+  ]
 }
