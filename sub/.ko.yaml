@@ -1,0 +1,32 @@
+# KO_DOCKER_REPO should be either kind.local
+# (for KinD) or ko.local
+
+defaultBaseImage: gcr.io/distroless/static
+builds:
+  # You can have multiple builds defined as a yaml list
+  -
+    # ID of the build.
+    # Defaults to the project name.
+    id: "my-build"
+
+    # Path to project's (sub)directory containing Go code.
+    # This is the working directory for the Go build command(s).
+    # Default is `.`.
+    dir: .
+
+    # Path to main.go file or main package.
+    # Notice: when used with `gomod.proxy`, this must be a package.
+    #
+    # Default is `.`.
+    main: github.com/StevenACoffman/repro/sub
+
+
+    ldflags:
+      - -s 
+      - -w
+      - -X main.AppName=Working
+
+    # Custom environment variables to be set during the builds.
+    # Default is empty.
+    env:
+      - CGO_ENABLED=0
