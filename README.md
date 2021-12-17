@@ -6,21 +6,15 @@ This repository reproduces a possible bug I found with google/ko in a private re
 If you run:
 
 ```
-export GOPRIVATE=github.com/StevenACoffman
 cd sub
-ko publish -B --bare --local --platform=linux/amd64 --push=false .
+./ko.sh
 ```
 The terminal will just hang there until you hit Ctrl-c.
 
-At which point, it will then say:
+At which point, it (at least on my MacOSX machine) will then say:
 ```
-^CError: error creating builder: 'builds': entry #0 does not contain a valid local import path (./.) for directory (.): err: signal: interrupt: stderr:
-2021/12/12 21:00:19 error during command execution:error creating builder: 'builds': entry #0 does not contain a valid local import path (./.) for directory (.): err: signal: interrupt: stderr:
+2021/12/16 19:48:53 Using base gcr.io/distroless/static:nonroot for github.com/StevenACoffman/repro/sub
+2021/12/16 19:48:55 Using build config my-build for github.com/StevenACoffman/repro/sub
+Error: failed to publish images: error building "ko://github.com/StevenACoffman/repro/sub": template: argsTmpl:1:60: executing "argsTmpl" at <.Env.APP>: map has no entry for key "APP"
+2021/12/16 19:48:55 error during command execution:failed to publish images: error building "ko://github.com/StevenACoffman/repro/sub": template: argsTmpl:1:60: executing "argsTmpl" at <.Env.APP>: map has no entry for key "APP"
 ```
-
-However, if you delete the .ko.yaml file in that directory and run it again, things work as you'd expect.
-```
-rm .ko.yaml
-ko publish -B --bare --local --platform=linux/amd64 --push=false .
-```
-
